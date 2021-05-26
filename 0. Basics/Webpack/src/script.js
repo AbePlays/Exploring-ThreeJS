@@ -14,7 +14,7 @@ const cube = new THREE.Mesh(geometry, material);
 // cube.position.z = 1;
 
 // Change position in a single step
-cube.position.set(0.5, -0.5, 1);
+// cube.position.set(0.5, -0.5, 1);
 
 // Scale
 // cube.scale.x = 2;
@@ -22,14 +22,44 @@ cube.position.set(0.5, -0.5, 1);
 // cube.scale.z = 2;
 
 // Change scale in a single step
-cube.scale.set(1.1, 1.1, 1.1);
+// cube.scale.set(1.1, 1.1, 1.1);
 
 // Rotation
-cube.rotation.reorder("YXZ");
-cube.rotation.y = 0.75 * Math.PI;
-cube.rotation.x = 0.75 * Math.PI;
+// cube.rotation.reorder("YXZ");
+// cube.rotation.y = 0.75 * Math.PI;
+// cube.rotation.x = 0.75 * Math.PI;
 
-scene.add(cube);
+// scene.add(cube);
+
+// Create a group
+const group = new THREE.Group();
+scene.add(group);
+
+const cube1 = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0xff0000 })
+);
+cube1.position.x = -2;
+// Add object to the group
+group.add(cube1);
+
+const cube2 = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+);
+group.add(cube2);
+
+const cube3 = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0x0000ff })
+);
+cube3.position.x = 2;
+group.add(cube3);
+
+// Transform the group
+group.position.y = 1;
+group.scale.y = 1.1;
+group.rotation.y = 1;
 
 // Create object for size
 const size = {
@@ -44,7 +74,7 @@ camera.position.z = 3;
 scene.add(camera);
 
 // Make camera look at a particular object
-camera.lookAt(cube.position);
+// camera.lookAt(cube.position);
 
 // Initialize Renderer
 const renderer = new THREE.WebGLRenderer({
