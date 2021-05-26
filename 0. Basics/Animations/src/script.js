@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import gsap from "gsap";
 
 // Create Scene
 const scene = new THREE.Scene();
@@ -27,15 +28,19 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(size.width, size.height);
 
+// Animating with gsap
+gsap.to(cube.position, { x: 2, duration: 1, delay: 1 });
+gsap.to(cube.position, { x: 0, duration: 1, delay: 2 });
+
 // Clock
-const clock = new THREE.Clock();
+// const clock = new THREE.Clock();
 
 // Animations
 const tick = () => {
   // Rotate the cube
   // cube.rotation.y += 0.01;
 
-  const elapsedTime = clock.getElapsedTime();
+  // const elapsedTime = clock.getElapsedTime();
   // 1 Revolution per second
   // cube.rotation.y = elapsedTime * Math.PI * 2;
 
@@ -44,9 +49,9 @@ const tick = () => {
   // cube.position.x = Math.cos(elapsedTime);
 
   // Animating the camera
-  camera.position.y = Math.sin(elapsedTime);
-  camera.position.x = Math.cos(elapsedTime);
-  camera.lookAt(cube.position);
+  // camera.position.y = Math.sin(elapsedTime);
+  // camera.position.x = Math.cos(elapsedTime);
+  // camera.lookAt(cube.position);
 
   // Render the scene
   renderer.render(scene, camera);
