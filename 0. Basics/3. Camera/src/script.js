@@ -1,3 +1,4 @@
+import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
@@ -11,6 +12,17 @@ window.addEventListener("mousemove", (event) => {
   cursor.y = -(event.clientY / size.height - 0.5);
 });
 
+//
+window.addEventListener("resize", () => {
+  size.width = window.innerWidth;
+  size.height = window.innerHeight;
+
+  camera.aspect = size.width / size.height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(size.width, size.height);
+});
+
 // Create Scene
 const scene = new THREE.Scene();
 
@@ -22,8 +34,8 @@ scene.add(cube);
 
 // Create object for size
 const size = {
-  width: 800,
-  height: 600,
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
 
 // Initialize Camera
