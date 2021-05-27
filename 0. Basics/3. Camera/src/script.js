@@ -2,6 +2,8 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+const canvas = document.querySelector(".webgl");
+
 // Monitoring mouse
 const cursor = {
   x: 0,
@@ -12,7 +14,7 @@ window.addEventListener("mousemove", (event) => {
   cursor.y = -(event.clientY / size.height - 0.5);
 });
 
-//
+// Handle browser resizing
 window.addEventListener("resize", () => {
   size.width = window.innerWidth;
   size.height = window.innerHeight;
@@ -21,6 +23,26 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
 
   renderer.setSize(size.width, size.height);
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+});
+
+// Handle fullscreen
+window.addEventListener("dblclick", () => {
+  const fullscreenElement =
+    document.fullscreenElement || document.webkitFullscreenElement;
+  if (!fullscreenElement) {
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen();
+    } else if (canvas.webkitRequestFullscreen) {
+      canvas.webkitRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
 });
 
 // Create Scene
@@ -46,16 +68,17 @@ camera.lookAt(cube.position);
 scene.add(camera);
 
 // Controls
-const controls = new OrbitControls(camera, document.querySelector(".webgl"));
+const controls = new OrbitControls(camera, canvas);
 
 // Add damping
 controls.enableDamping = true;
 
 // Initialize Renderer
 const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector(".webgl"),
+  canvas,
 });
 renderer.setSize(size.width, size.height);
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
 
 // Axes Helper
 const axesHelper = new THREE.AxesHelper(2);
