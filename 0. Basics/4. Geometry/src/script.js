@@ -49,8 +49,18 @@ window.addEventListener("dblclick", () => {
 const scene = new THREE.Scene();
 
 // Create Cube
-// const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
-const geometry = new THREE.Geometry();
+// const geometry = new THREE.BoxBufferGeometry(1, 1, 1, 2, 2, 2);
+// const geometry = new THREE.Geometry();
+const geometry = new THREE.BufferGeometry();
+
+// const positionArray = new Float32Array([0, 0, 0, 0, 1, 0, 1, 0, 0]);
+const count = 50;
+const positionArray = new Float32Array(count * 3 * 3);
+for (let i = 0; i < count * 3 * 3; i++) {
+  positionArray[i] = (Math.random() - 0.5) * 5;
+}
+const positionAttribute = new THREE.BufferAttribute(positionArray, 3);
+geometry.setAttribute("position", positionAttribute);
 
 // Create vertices for the geometry
 // const vertex1 = new THREE.Vector3(0, 0, 0);
@@ -66,15 +76,15 @@ const geometry = new THREE.Geometry();
 // const face = new THREE.Face3(0, 1, 2);
 // geometry.faces.push(face);
 
-for (let i = 0; i < 50; i++) {
-  for (let j = 0; j < 3; j++) {
-    geometry.vertices.push(
-      new THREE.Vector3(Math.random(), Math.random(), Math.random())
-    );
-  }
-  const index = i * 3;
-  geometry.faces.push(new THREE.Face3(index, index + 1, index + 2));
-}
+// for (let i = 0; i < 50; i++) {
+//   for (let j = 0; j < 3; j++) {
+//     geometry.vertices.push(
+//       new THREE.Vector3(Math.random(), Math.random(), Math.random())
+//     );
+//   }
+//   const index = i * 3;
+//   geometry.faces.push(new THREE.Face3(index, index + 1, index + 2));
+// }
 
 const material = new THREE.MeshBasicMaterial({
   color: "lime",
