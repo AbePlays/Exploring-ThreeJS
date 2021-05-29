@@ -5,13 +5,25 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 const canvas = document.querySelector(".webgl");
 
 // Textures
-const image = new Image();
-const texture = new THREE.Texture(image);
-image.onload = () => {
-  texture.needsUpdate = true;
-};
+const textureLoader = new THREE.TextureLoader();
+const texture = textureLoader.load("/textures/doors/color.jpg");
 
-image.src = "/textures/doors/color.jpg";
+// Repeat the texture
+texture.repeat.x = 2;
+texture.wrapS = THREE.MirroredRepeatWrapping;
+texture.repeat.y = 3;
+texture.wrapT = THREE.MirroredRepeatWrapping;
+
+// Offset texture
+texture.offset.x = 0.5;
+texture.offset.y = 0.5;
+
+// Rotate texture
+texture.rotation = Math.PI / 4;
+
+// Change pivot of rotation
+texture.center.x = 0.5;
+texture.center.y = 0.5;
 
 // Monitoring mouse
 const cursor = {
