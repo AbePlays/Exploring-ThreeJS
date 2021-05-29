@@ -25,6 +25,11 @@ texture.rotation = Math.PI / 4;
 texture.center.x = 0.5;
 texture.center.y = 0.5;
 
+// Filters
+// texture.generateMipmaps = false
+// texture.minFilter = THREE.NearestFilter;
+// texture.magFilter = THREE.NearestFilter;
+
 // Monitoring mouse
 const cursor = {
   x: 0,
