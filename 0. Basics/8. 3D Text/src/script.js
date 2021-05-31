@@ -2,6 +2,34 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+// Load Fonts
+const fontLoader = new THREE.FontLoader();
+fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
+  const textGeometry = new THREE.TextBufferGeometry("Abhishek Rawat", {
+    font,
+    size: 0.5,
+    height: 0.2,
+    curveSegments: 5,
+    bevelEnabled: true,
+    bevelThickness: 0.03,
+    bevelSize: 0.02,
+    bevelOffset: 0,
+    bevelSegments: 4,
+  });
+  // Center text
+  // textGeometry.computeBoundingBox();
+  // textGeometry.translate(
+  //   -(textGeometry.boundingBox.max.x - 0.02) / 2,
+  //   -(textGeometry.boundingBox.max.y - 0.02) / 2,
+  //   -(textGeometry.boundingBox.max.z - 0.03) / 2
+  // );
+  textGeometry.center();
+
+  const textMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+  const text = new THREE.Mesh(textGeometry, textMaterial);
+  scene.add(text);
+});
+
 const canvas = document.querySelector(".webgl");
 
 // Monitoring mouse
@@ -49,10 +77,10 @@ window.addEventListener("dblclick", () => {
 const scene = new THREE.Scene();
 
 // Create Cube
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: "lime" });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// const geometry = new THREE.BoxGeometry(1, 1, 1);
+// const material = new THREE.MeshBasicMaterial({ color: "lime" });
+// const cube = new THREE.Mesh(geometry, material);
+// scene.add(cube);
 
 // Create object for size
 const size = {
@@ -64,7 +92,7 @@ const size = {
 const camera = new THREE.PerspectiveCamera(75, size.width / size.height);
 // Position the Camera
 camera.position.z = 3;
-camera.lookAt(cube.position);
+// camera.lookAt(text.position);
 scene.add(camera);
 
 // Controls
