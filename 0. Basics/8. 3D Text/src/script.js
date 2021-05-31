@@ -2,6 +2,10 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+// Load Texture
+const textureLoader = new THREE.TextureLoader();
+const matCapTexture = textureLoader.load("/textures/matcaps/8.png");
+
 // Load Fonts
 const fontLoader = new THREE.FontLoader();
 fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
@@ -25,9 +29,29 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
   // );
   textGeometry.center();
 
-  const textMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
-  const text = new THREE.Mesh(textGeometry, textMaterial);
+  const material = new THREE.MeshMatcapMaterial();
+  material.matcap = matCapTexture;
+  const text = new THREE.Mesh(textGeometry, material);
   scene.add(text);
+
+  // Add Donuts
+  const donutGeometry = new THREE.TorusBufferGeometry(0.3, 0.2, 20, 45);
+
+  for (let i = 0; i < 500; i++) {
+    const donut = new THREE.Mesh(donutGeometry, material);
+
+    donut.position.x = (Math.random() - 0.5) * 10;
+    donut.position.y = (Math.random() - 0.5) * 10;
+    donut.position.z = (Math.random() - 0.5) * 10;
+
+    donut.rotation.x = Math.random() * Math.PI;
+    donut.rotation.y = Math.random() * Math.PI;
+
+    const scale = Math.random();
+    donut.scale.set(scale, scale, scale);
+
+    scene.add(donut);
+  }
 });
 
 const canvas = document.querySelector(".webgl");
